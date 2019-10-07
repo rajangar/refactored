@@ -1,16 +1,11 @@
 # refactor-this
-A terribly written Web API project that can be used as a test for potential C# applicants.  It's terrible on purpose, so that you can show us how we can improve it.
+The attached project is a poorly written products API in C# using .net framework.
+
+Please evaluate and refactor areas where you think can be improved. 
+
+Consider all aspects of good software engineering and show us how you'll make it #beautiful and make it a production ready code.
 
 ## Getting started for applicants
-
-Fork this repository and make your changes to this project to make it better.  Simple.  There are no rules, except that we know that this project is very badly written, on purpose.  So, your job, should you choose to accept it, is to make the project better in any way you see fit.
-
-To set up the project:
-
-* Visual Studio 2015 is preferred.
-* Open in VS.
-* Restore nuget packages and rebuild.
-* Run the project.
 
 There should be these endpoints:
 
