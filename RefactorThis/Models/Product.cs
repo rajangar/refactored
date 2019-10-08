@@ -2,6 +2,9 @@
 
 namespace refactor_this.Models
 {
+    /// <summary>
+    /// Product class
+    /// </summary>
     public class Product
     {
         public Guid Id { get; set; }
@@ -14,6 +17,13 @@ namespace refactor_this.Models
 
         public decimal DeliveryPrice { get; set; }
 
+        /// <summary>
+        /// Static function to get the product by id
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>
+        /// Product object
+        /// </returns>
         public static Product GetProductFromId(Guid id)
         {
             var cmd = $"select * from product where id = '{id}'";
@@ -32,40 +42,52 @@ namespace refactor_this.Models
             return product;
         }
 
-        public void Create()
+        /// <summary>
+        /// To create a new product entry
+        /// </summary>
+        /// <returns>
+        /// Status that how many rows created or -1 if error
+        /// </returns>
+        public int Create()
         {
             var id = Guid.NewGuid();
-            if (GetProductFromId(id) != null)
-                return;
-
+            
             var cmd = $"insert into product (id, name, description, price, deliveryprice) " +
                 $"values ('{id}', '{Name}', '{Description}', {Price}, {DeliveryPrice})";
 
-            Helpers.ExecuteQuery(cmd, true);
+            return Helpers.ExecuteNonQuery(cmd);
         }
 
-        public void Update(Guid id)
+        /// <summary>
+        /// To update a product entry by product id
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>
+        /// Status that how many rows updated or -1 if error
+        /// </returns>
+        public int Update(Guid id)
         {
-            if (GetProductFromId(id) == null)
-                return;
-
             var cmd = $"update product set name = '{Name}', description = '{Description}', price = {Price}, " +
                 $"deliveryprice = {DeliveryPrice} where id = '{id}'";
 
-            Helpers.ExecuteQuery(cmd, true);
+            return Helpers.ExecuteNonQuery(cmd);
         }
 
-        public static void Delete(Guid id)
+        /// <summary>
+        /// To delete a product entry by product id
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>
+        /// Status that how many rows deleted or -1 if error
+        /// </returns>
+        public static int Delete(Guid id)
         {
             foreach (var option in ProductOptions.GetAllProductOptions(id).Items)
                 ProductOption.Delete(option.Id);
 
-            if (GetProductFromId(id) == null)
-                return;
-
             var cmd = $"delete from product where id = '{id}'";
 
-            Helpers.ExecuteQuery(cmd, true);
+            return Helpers.ExecuteNonQuery(cmd);
         }
     }
 }
